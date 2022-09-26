@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define MAX_SIZE    1000
+#define MAX_SIZE    50
 
 int main(int argc, char *argv[])
 {
@@ -19,9 +19,13 @@ int main(int argc, char *argv[])
         }
         int des_file = open(argv[2], O_WRONLY|O_CREAT);
         char buf[MAX_SIZE];
-        int coun_read = read(src_file,buf, MAX_SIZE );
+        int coun_read =0;
+        while (coun_read = read(src_file,buf, MAX_SIZE ) != 0) 
+        {
+            write(des_file,buf, coun_read );
+        }
 
-        write(des_file,buf, coun_read );
+        
 
         close(src_file);
         close(des_file);
